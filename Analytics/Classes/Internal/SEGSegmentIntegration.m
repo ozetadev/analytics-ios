@@ -260,19 +260,25 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
 - (void)beginBackgroundTask
 {
     [self endBackgroundTask];
+#if REDNOTE_APP
 
     self.flushTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self endBackgroundTask];
     }];
+    
+#endif
 }
 
 - (void)endBackgroundTask
 {
     [self dispatchBackgroundAndWait:^{
+#if REDNOTE_APP
+
         if (self.flushTaskID != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:self.flushTaskID];
             self.flushTaskID = UIBackgroundTaskInvalid;
         }
+#endif
     }];
 }
 

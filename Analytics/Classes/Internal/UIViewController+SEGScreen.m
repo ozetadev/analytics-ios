@@ -38,7 +38,10 @@
 
 + (UIViewController *)seg_topViewController
 {
-    UIViewController *root = [UIApplication sharedApplication].delegate.window.rootViewController;
+    UIViewController *root;
+#if REDNOTE_APP
+    root = [UIApplication sharedApplication].delegate.window.rootViewController;
+#endif
     return [self seg_topViewController:root];
 }
 
